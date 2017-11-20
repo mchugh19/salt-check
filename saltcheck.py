@@ -304,7 +304,6 @@ class SaltCheck(object):
         tots = 0  # need total of >= 6 to be a valid test
         m_and_f = test_dict.get('module_and_function', None)
         assertion = test_dict.get('assertion', None)
-        expected_return = test_dict.get('expected-return', None)
         log.info("__is_valid_test has test: {}".format(test_dict))
         if m_and_f:
             tots += 1
@@ -319,7 +318,8 @@ class SaltCheck(object):
             if assertion in self.assertions_list:
                 tots += 1
                 log.info("__is_valid_test has valid_assertion")
-        if expected_return:
+        if 'expected-return' in test_dict:
+            expected_return = test_dict['expected-return']
             tots += 1
             log.info("__is_valid_test has valid_expected_return")
         elif assertion in ["assertEmpty", "assertNotEmpty",
